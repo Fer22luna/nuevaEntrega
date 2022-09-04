@@ -3,12 +3,15 @@ const allButtons = document.querySelectorAll(".button") // selecciono todos los 
 const tbody = document.querySelector(".tbody")  // seleccion la etiqueta padre donde se va a hacer la lista 
 const btnComprar = document.getElementById("btn-comprar")
 
-let carrito = [];  // armo el carrito
+let carrito = [];  // me fabrico el carrito 
+
 
 allButtons.forEach(btn =>{
     btn.addEventListener("click", agregarAlCarrito)
 
 })
+
+
 
 function agregarAlCarrito (event){
     const button = event.target 
@@ -30,6 +33,7 @@ listaCarrito(productoTitle,productoPrecio)
 }
 
 
+// esta funcion me va a armar la tabla con las variables seleccionadas
 function listaCarrito(productoTitle,productoPrecio){
 
         const tr = document.createElement("tr")  // creo un table row
@@ -98,7 +102,7 @@ function agregarStorage(){
 }
 
 
-// aca usando la libreria y agregando el operador ternario
+// aca usando la libreria sweetalert y agregando el operador ternario
 
 
   btnComprar.addEventListener("click", () =>{ carrito.length === 0 ? swal({
