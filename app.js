@@ -1,9 +1,52 @@
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '77ee715719msh1cbc2d5321189fdp1dc147jsn15ace5c24e31',
+		'X-RapidAPI-Host': 'random-recipes.p.rapidapi.com'
+	}
+};
+
+const divPadre = document.getElementById("div-padre")
+
+
+fetch('https://random-recipes.p.rapidapi.com/ai-quotes/8?id=3', options)
+	.then(response => response.json())
+	
+  .then((data) => data.forEach((element) => {
+    const divs = document.createElement("div")
+    
+   divs.classList.add("card","col","d-flex","justify-content-center-mb-4") 
+    divs.innerHTML = 
+    
+    `
+    <img src="${element.image}" class="card-img-top p-3" alt="">
+    <div class="card-body  text-center ">
+        <div class="card-body">
+            <h4 class="card-title">${element.title}</h4>
+            <h5 class="text-primary"><span class="precio">500</span></h5>
+        </div>
+
+        <button type="button" value="Queso" class="btn btn-outline-primary mb-3 button"
+            id="btn-2">Añadir a
+            carro</button>
+    
+
+    `
+  divPadre.append(divs)
+  
+  }
+  )) 
+  
+	.catch(err => console.error(err));
+
+
 
 const allButtons = document.querySelectorAll(".button") // selecciono todos los botones
+console.log(allButtons)
 const tbody = document.querySelector(".tbody")  // seleccion la etiqueta padre donde se va a hacer la lista 
 const btnComprar = document.getElementById("btn-comprar")
 
-let carrito = [];  // me fabrico el carrito 
+let carrito = [];  // me fabrico el array
 
 allButtons.forEach(btn =>{
     btn.addEventListener("click", agregarAlCarrito)
@@ -72,7 +115,7 @@ tr.innerHTML = contenido  // le meto ese contenido
 tbody.appendChild(tr)  // En el contenedor padre le pongo los hijos
 
 tr.querySelector(".delete").addEventListener("click", removerDelCarrito)
-
+tr.querySelector(".input-elemento").addEventListener("change", sumaCantidad)
 /*
 const titulo = document.querySelectorAll(".title")
 //console.log(titulo)
@@ -93,11 +136,26 @@ if (productoTitle === titulo[i].textContent) {
   
 }
 */
-
-
-
   carritoTotal() 
 }
+
+function sumaCantidad (e){
+  const sumaInput = e.target
+  const tr = sumaInput.closest(".itemCarrito")
+  const title = tr.querySelector(".title").textContent
+console.log(sumaCantidad)
+carrito.forEach(item => {
+//
+}
+)
+}
+
+
+
+
+
+
+
 
 function carritoTotal(){
     let total = 0;
