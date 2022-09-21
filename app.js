@@ -1,3 +1,7 @@
+////////////////////////////////////////// capturando la API
+
+
+/*
 const options = {
 	method: 'GET',
 	headers: {
@@ -38,6 +42,106 @@ fetch('https://random-recipes.p.rapidapi.com/ai-quotes/8?id=3', options)
   )) 
   
 	.catch(err => console.error(err));
+
+*/
+
+///////////////////////// lo mismo de arriba pero lo puse en un funcion
+/*
+function pintarCarta (array) {
+    array.forEach((element) => {
+        const divs = document.createElement("div")
+        
+       divs.classList.add("card","col","d-flex","justify-content-center-mb-4") 
+        divs.innerHTML = 
+        
+        `
+        <img src="${element.image}" class="card-img-top p-3" alt="">
+        <div class="card-body  text-center ">
+            <div class="card-body">
+                <h4 class="card-title">${element.title}</h4>
+                <h5 class="text-primary"><span class="precio">500</span></h5>
+            </div>
+    
+            <button type="button" value="Queso" class="btn btn-outline-primary mb-3 button"
+                id="btn-2">Añadir a
+                carro</button>
+        `
+      divPadre.append(divs)
+      
+      
+      }
+      )
+    
+}
+
+
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '77ee715719msh1cbc2d5321189fdp1dc147jsn15ace5c24e31',
+		'X-RapidAPI-Host': 'random-recipes.p.rapidapi.com'
+	}
+};
+
+const divPadre = document.getElementById("div-padre");
+
+fetch('https://random-recipes.p.rapidapi.com/ai-quotes/8?id=3', options)
+	.then(response => response.json())
+    .then((data) => pintarCarta(data))
+	.catch(err => console.error(err));
+
+   
+
+*/
+
+//// probando con Async
+
+const divPadre = document.getElementById("div-padre");
+
+async function obtengoInfo() {
+    let url = 'productos.json';
+    try {
+        let res = await fetch(url);
+        return await res.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function mostrarInfoCards() {
+    let productos = await obtengoInfo();
+   // let html = '';
+    productos.forEach(producto => {
+     
+
+                        const divs = document.createElement("div")
+        
+                        divs.classList.add("card","col","d-flex","justify-content-center-mb-4") 
+                         divs.innerHTML = 
+                         
+                         `
+                         <img src="${producto.img}" class="card-img-top p-3" alt="">
+                         <div class="card-body  text-center ">
+                             <div class="card-body">
+                                 <h4 class="card-title">${producto.title}</h4>
+                                 <h5 class="text-primary"><span class="precio">$${producto.precio}</span></h5>
+                             </div>
+                     
+                             <button type="button" value="Queso" class="btn btn-outline-primary mb-3 button"
+                                 id="btn-2">Añadir a
+                                 carro</button>
+                         `
+                    
+                       divPadre.append(divs)           
+                       }
+                      
+                       )
+                       
+                    }
+
+mostrarInfoCards();
+
+
 
 
 
