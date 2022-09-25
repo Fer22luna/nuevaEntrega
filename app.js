@@ -1,160 +1,63 @@
-////////////////////////////////////////// capturando la API
 
-
-/*
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '77ee715719msh1cbc2d5321189fdp1dc147jsn15ace5c24e31',
-		'X-RapidAPI-Host': 'random-recipes.p.rapidapi.com'
-	}
-};
-
-const divPadre = document.getElementById("div-padre")
-
-
-fetch('https://random-recipes.p.rapidapi.com/ai-quotes/8?id=3', options)
-	.then(response => response.json())
-	
-  .then((data) => data.forEach((element) => {
-    const divs = document.createElement("div")
-    
-   divs.classList.add("card","col","d-flex","justify-content-center-mb-4") 
-    divs.innerHTML = 
-    
-    `
-    <img src="${element.image}" class="card-img-top p-3" alt="">
-    <div class="card-body  text-center ">
-        <div class="card-body">
-            <h4 class="card-title">${element.title}</h4>
-            <h5 class="text-primary"><span class="precio">500</span></h5>
-        </div>
-
-        <button type="button" value="Queso" class="btn btn-outline-primary mb-3 button"
-            id="btn-2">Añadir a
-            carro</button>
-    
-
-    `
-  divPadre.append(divs)
-  
-  }
-  )) 
-  
-	.catch(err => console.error(err));
-
-*/
-
-///////////////////////// lo mismo de arriba pero lo puse en un funcion
-/*
-function pintarCarta (array) {
-    array.forEach((element) => {
-        const divs = document.createElement("div")
-        
-       divs.classList.add("card","col","d-flex","justify-content-center-mb-4") 
-        divs.innerHTML = 
-        
-        `
-        <img src="${element.image}" class="card-img-top p-3" alt="">
-        <div class="card-body  text-center ">
-            <div class="card-body">
-                <h4 class="card-title">${element.title}</h4>
-                <h5 class="text-primary"><span class="precio">500</span></h5>
-            </div>
-    
-            <button type="button" value="Queso" class="btn btn-outline-primary mb-3 button"
-                id="btn-2">Añadir a
-                carro</button>
-        `
-      divPadre.append(divs)
-      
-      
-      }
-      )
-    
-}
-
-
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '77ee715719msh1cbc2d5321189fdp1dc147jsn15ace5c24e31',
-		'X-RapidAPI-Host': 'random-recipes.p.rapidapi.com'
-	}
-};
-
-const divPadre = document.getElementById("div-padre");
-
-fetch('https://random-recipes.p.rapidapi.com/ai-quotes/8?id=3', options)
-	.then(response => response.json())
-    .then((data) => pintarCarta(data))
-	.catch(err => console.error(err));
-
-   
-
-*/
-
-//// probando con Async
 
 const divPadre = document.getElementById("div-padre");
 
 async function obtengoInfo() {
-    let url = 'productos.json';
-    try {
-        let res = await fetch(url);
-        return await res.json();
-    } catch (error) {
-        console.log(error);
-    }
+  let url = 'productos.json';
+  try {
+    let res = await fetch(url);
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function mostrarInfoCards() {
-    let productos = await obtengoInfo();
-   // let html = '';
-    productos.forEach(producto => {
-     
+  let productos = await obtengoInfo();
 
-                        const divs = document.createElement("div")
-        
-                        divs.classList.add("card","col","d-flex","justify-content-center-mb-4") 
-                         divs.innerHTML = 
-                         
-                         `
+  productos.forEach(producto => {
+
+
+    const divs = document.createElement("div")
+
+    divs.classList.add("card", "col", "d-flex", "justify-content-center-mb-4")
+    divs.innerHTML =
+
+      `
                          <img src="${producto.img}" class="card-img-top p-3" alt="">
                          <div class="card-body  text-center ">
                              <div class="card-body">
                                  <h4 class="card-title">${producto.title}</h4>
-                                 <h5 class="text-primary"><span class="precio">$${producto.precio}</span></h5>
+                                 <h5 class="text-primary"><span class="precio">${producto.precio}</span></h5>
                              </div>
                      
                              <button type="button" value="Queso" class="btn btn-outline-primary mb-3 button"
                                  id="btn-2">Añadir a
                                  carro</button>
                          `
-                    
-                       divPadre.append(divs)           
-                       }
-                      
-                       )
-                       
-                    }
 
-mostrarInfoCards();
+    divPadre.append(divs)
+  }
 
+  )
 
+}
 
+mostrarInfoCards()
 
-
-const allButtons = document.querySelectorAll(".button") // selecciono todos los botones
-console.log(allButtons)
-const tbody = document.querySelector(".tbody")  // seleccion la etiqueta padre donde se va a hacer la lista 
-const btnComprar = document.getElementById("btn-comprar")
 
 let carrito = [];  // me fabrico el array
+const tbody = document.querySelector(".tbody")  // seleccion la etiqueta padre donde se va a hacer la lista 
+const btnComprar = document.getElementById("btn-comprar")
+///
+document.addEventListener("DOMContentLoaded", function () {
 
-allButtons.forEach(btn =>{
+  const allButtons = divPadre.querySelectorAll(".button") // selecciono todos los botones
+  console.log(allButtons)
+
+  allButtons.forEach(btn => {
     btn.addEventListener("click", agregarAlCarrito)
-    btn.addEventListener("click", ()=>{
+    btn.addEventListener("click", () => {
 
       Toastify({
         text: "Agregaste un producto al carrito",
@@ -162,52 +65,52 @@ allButtons.forEach(btn =>{
         destination: "https://github.com/apvarun/toastify-js",
         newWindow: true,
         close: false,
-        gravity: "top", 
-        position: "right", 
-        stopOnFocus: true, 
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
         style: {
           background: "linear-gradient(to right, #25316D, #5F6F94)",
         },
-        onClick: function(){} // Callback after click
+        onClick: function () { } // Callback after click
       }).showToast();
 
     })
+  })
 })
 
 
+function agregarAlCarrito(event) {
+  const button = event.target
+  const producto = button.closest(".card")
+  let productoTitle = producto.querySelector(".card-title").textContent
+  let productoPrecio = producto.querySelector(".precio").textContent
 
-function agregarAlCarrito (event){
-    const button = event.target 
-    const producto = button.closest(".card")  
-    const productoTitle = producto.querySelector(".card-title").textContent
-    const productoPrecio = producto.querySelector(".precio").textContent
-
-    agregarProductoAlCarrito(productoTitle,productoPrecio)
-    agregarStorage()
+  agregarProductoAlCarrito(productoTitle, productoPrecio)
+  agregarStorage()
 
 }
 
 
-function agregarProductoAlCarrito(productoTitle,productoPrecio) {
+function agregarProductoAlCarrito(productoTitle, productoPrecio) {
 
-carrito.push({productoTitle,productoPrecio})
-listaCarrito(productoTitle,productoPrecio)
+  carrito.push({ productoTitle, productoPrecio })
+  listaCarrito(productoTitle, productoPrecio)
 }
 
 
 // esta funcion me va a armar la tabla con las variables seleccionadas
 
-function listaCarrito(productoTitle,productoPrecio){
+function listaCarrito(productoTitle, productoPrecio) {
 
-        const tr = document.createElement("tr")  // creo un table row
-        tr.classList.add("itemCarrito")  // con la sigueinte clase 
-        const itemCantidad = 1
-        const contenido = `
+  const tr = document.createElement("tr")  // creo un table row
+  tr.classList.add("itemCarrito")  // con la sigueinte clase 
+  const itemCantidad = 1
+  const contenido = `
         <th scope="row">1</th>
                         <td class="table-productos">
                         <h6 class="title">${productoTitle}</h6>
                         </td>
-                        <td class="table-precio"><p>${productoPrecio}</p></td>
+                        <td class="table-precio"><p class="prec">${productoPrecio}</p></td>
                         <td class="table-cantidad">
                         <input class="input-elemento" type="number" min="1" value="${itemCantidad}">
                             <button class="delete btn btn-danger mx-5">X</button>
@@ -215,95 +118,95 @@ function listaCarrito(productoTitle,productoPrecio){
         
         `
 
-tr.innerHTML = contenido  // le meto ese contenido
-tbody.appendChild(tr)  // En el contenedor padre le pongo los hijos
+  tr.innerHTML = contenido  // le meto ese contenido
+  tbody.appendChild(tr)  // En el contenedor padre le pongo los hijos
 
-tr.querySelector(".delete").addEventListener("click", removerDelCarrito)
-tr.querySelector(".input-elemento").addEventListener("change", sumaCantidad)
-/*
-const titulo = document.querySelectorAll(".title")
-//console.log(titulo)
+  tr.querySelector(".delete").addEventListener("click", removerDelCarrito)
+  //tr.querySelector(".input-elemento").addEventListener("change", sumaCantidad)
 
-const inputElemento = document.querySelectorAll(".input-elemento")
+  //console.log(productoTitle)
 
-for (let i = 0; i < inputElemento.length; i++) {
-  inputElemento[i].addEventListener("change", (e)=>{
-  let sumaInput = e.target
-  console.log(sumaInput.value)
-if (productoTitle === titulo[i].textContent) {
+  const titulo = document.querySelectorAll(".title")
+  //console.log(titulo)
 
-  sumaInput.value < 1 ? (sumaInput.value = 1) : sumaInput.value;
-  itemCantidad = sumaInput.value
- 
-}
-  })
+  const inputElemento = document.querySelectorAll(".input-elemento")
+
+  for (let i = 0; i < inputElemento.length; i++) {
+    inputElemento[i].addEventListener("change", (e) => {
+      let sumaInput = e.target
+      // console.log(sumaInput.value)
+
+
+      if (productoTitle === titulo[i].textContent) {
+
+        sumaInput.value < 1 ? (sumaInput.value = 1) : sumaInput.value;
+        var itemCantidad = sumaInput.value
+        var totalPrecioUnidad = itemCantidad * productoPrecio
+      //  console.log(totalPrecioUnidad)
+      console.log(itemCantidad)
+
+      }
+
+    }
+    )
+  }
+
+  let total = 0;
+
+  const itemCartTotal = document.querySelector(".itemCartTotal")
+  const todosItems = document.querySelectorAll(".itemCarrito")
+  const tablePrecio = document.querySelectorAll(".prec")
   
-}
-*/
-  carritoTotal() 
-}
 
-function sumaCantidad (e){
-  const sumaInput = e.target
-  const tr = sumaInput.closest(".itemCarrito")
-  const title = tr.querySelector(".title").textContent
-console.log(sumaCantidad)
-carrito.forEach(item => {
-//
-}
-)
+  for (let i = 0; i < todosItems.length; i++) {
+
+    const precio = Number(tablePrecio[i].textContent)
+    total = total + precio*itemCantidad
+
+    itemCartTotal.innerHTML = `Total es $${total}`
+    }
+
+
+  //carritoTotal()
+
 }
 
 
+function carritoTotal() {
+  let total = 0;
 
-
-
-
-
-
-function carritoTotal(){
-    let total = 0;
-
-    const itemCartTotal = document.querySelector(".itemCartTotal")
-    const todosItems = document.querySelectorAll(".itemCarrito")
-    tablePrecio = document.querySelectorAll(".table-precio")
-    const inputElemento = document.querySelectorAll(".input-elemento")
-    
-    
-///  Aca tuve un inconveniente quise usar el forEach para recorrer cada elemento de todosItems, pero cuando me 
-/// seleccionaba el tablePrecio siempre lo hacia del primer elemento y no de los otros, es decir, me lo repetia
-/// Asi que tuve que armar a tablePrecio como un objeto y recorrerlo con un for
-
-
-for (let i = 0; i < todosItems.length; i++) {
- // inputElemento[i].addEventListener("change", (e)=>{
- //   let sumaInput = e.target
-const precio = Number(tablePrecio[i].textContent)
-//const cantidad = Number(sumaInput.value)
-total = total + precio //*cantidad
+  const itemCartTotal = document.querySelector(".itemCartTotal")
+  const todosItems = document.querySelectorAll(".itemCarrito")
+  const tablePrecio = document.querySelectorAll(".prec")
   
-    
 
-itemCartTotal.innerHTML = `Total es $${total}`
-//}) 
-}}
+  for (let i = 0; i <= todosItems.length; i++) {
+
+    const precio = Number(tablePrecio[i].textContent)
+    total = total + precio 
+
+
+    itemCartTotal.innerHTML = `Total es $${total}`
+    }
+  }
+
 
 
 function removerDelCarrito(event) {
 
-    const buttonDelete = event.target
-    const tr = buttonDelete.closest(".itemCarrito")  
-    tr.remove()
-    carritoTotal() // llamo la funcion para que me borre tambien el valor del TOTAL
-    
-    
-}  
+  const buttonDelete = event.target
+  const tr = buttonDelete.closest(".itemCarrito")
+  tr.remove()
+  carritoTotal() // llamo la funcion para que me borre tambien el valor del TOTAL
+
+
+}
 
 
 // Meterlos al localStorage
 
-function agregarStorage(){
-    localStorage.setItem("carrito", JSON.stringify(carrito))
+function agregarStorage() {
+  localStorage.setItem("carrito", JSON.stringify(carrito))
 
 }
 
@@ -311,13 +214,14 @@ function agregarStorage(){
 // aca usando la libreria sweetalert y agregando el operador ternario
 
 
-  btnComprar.addEventListener("click", () =>{ carrito.length === 0 ? swal({
+btnComprar.addEventListener("click", () => {
+  carrito.length === 0 ? swal({
     title: "Carro Vacio!",
     text: "Porfavor agregar productos!",
     icon: "warning",
     button: "OK",
   })
-  :swal({
+  : swal({
     title: "Muchas Gracias",
     text: "Su compra ha sido exitosa",
     icon: "success",
@@ -325,7 +229,7 @@ function agregarStorage(){
   })
 
 
-  })
+})
 
 
 
