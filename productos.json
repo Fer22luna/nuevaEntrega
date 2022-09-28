@@ -1,48 +1,48 @@
 [
     {
-      "precio": 5,
+      "precio": 100,
       "id": 1,
       "title": "producto 1",
       "img": "/leche.jpg"
     },
     {
-      "precio": 6,
+      "precio": 200,
       "id": 2,
       "title": "producto 2",
       "img": "/leche.jpg"
     },
     {
-      "precio": 7,
+      "precio": 300,
       "id": 3,
       "title": "producto 3",
       "img": "/leche.jpg"
     },
     {
-      "precio": 8,
+      "precio": 400,
       "id": 4,
       "title": "producto 4",
       "img": "/leche.jpg"
     },
     {
-      "precio": 9,
+      "precio": 500,
       "id": 5,
       "title": "producto 5",
       "img": "/leche.jpg"
     },
     {
-      "precio": 10,
+      "precio": 600,
       "id": 6,
       "title": "producto 6",
       "img": "/leche.jpg"
     },
     {
-      "precio": 11,
+      "precio": 700,
       "id": 7,
       "title": "producto 7",
       "img": "/leche.jpg"
     },
     {
-      "precio": 12,
+      "precio": 800,
       "id": 8,
       "title": "producto 8",
       "img": "/leche.jpg"
